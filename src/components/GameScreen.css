@@ -15,12 +15,23 @@
     text-align: left;
 }
 
+.tryError {
+    text-align: left;
+    font-size: .9em;
+    color: black;
+}
+
 .wordContainer {
     margin: 70px 0;
 }
 
-.letter {
+.letter, .blankSquare {
     font-size: 3.5em;
+    padding: 7px;
+    margin-right: 1px;
+    border: 3px solid black;
+    text-transform: uppercase;
+    background-color: white;
 }
 
 .letterContainer p {
