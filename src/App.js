@@ -25,15 +25,21 @@ const App = () => {
   const pickWordAndCategory = () => {
     const categories = Object.keys(words)
     const category = categories[Math.floor(Math.random() * Object.keys(categories).length)]
-    console.log(category);
-
-    const word = Object(words)
-    console.log(word[category][Math.floor(Math.random() * word[category].length)]);
-    
+    const word = words[category][Math.floor(Math.random() * words[category].length)]
+    return {word, category}
   }
   
   const startGame = ()=> {
-    pickWordAndCategory()
+    const {word, category} = pickWordAndCategory()
+    let wordLetters = word.split("")
+    wordLetters = wordLetters.map((l) => l.toLowerCase())
+
+    console.log(wordLetters)
+
+    setPickedWord(word)
+    setPickedCategory(category)
+    setLetters(letters)
+
     setGameStage(stages[1].name)
   }
   const verifyLetter = ()=> {
