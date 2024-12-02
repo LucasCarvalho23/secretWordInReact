@@ -4,7 +4,16 @@
 
 .end h1 {
     font-size: 3.5em;
-    color: red;
+    color: gray;
+}
+
+.end h2 {
+    font-size: 1.2em;
+    color: gray;
+}
+
+.end h2 span {
+    color: blue;
 }
 
 .end p {
