@@ -13,6 +13,8 @@ const stages = [
   {id: 3, name: 'end'},
 ]
 
+const guessesQty = 3
+
 const App = () => {
 
   const [gameStage, setGameStage] = useState(stages[0].name)
@@ -22,7 +24,7 @@ const App = () => {
   const [pickedCategory, setPickedCategory] = useState("")
   const [letters, setLetters] = useState([])
   const [guessedLetters, setGessedLetters] = useState([])
-  const [guessed, setGessed] = useState(3)
+  const [guesses, setGesses] = useState(guessesQty)
   const [wrongLetters, setWrongLetters] = useState([])
   const [score, setScore] = useState(0)
 
@@ -63,19 +65,32 @@ const App = () => {
         ...actualWrongLetters,
         normalizedLetter
       ])
-    }
-
-    console.log(guessedLetters);
-    console.log(wrongLetters);
+      setGesses((actualGuesses) => actualGuesses-1)
+    }  
   }
+
+  const clearLetterStates = ()=> {
+    setGessedLetters([])
+    setWrongLetters([])
+  }
+
+  useEffect( ()=> {
+    if (guesses <= 0) {
+      clearLetterStates()
+      setGameStage(stages[2].name)
+    }
+  }, [guesses])   
+
   const retry = ()=> {
+    setScore(0)
+    setGesses(guessesQty)
     setGameStage(stages[0].name)
   }
 
   return (
     <div className="App">
       {gameStage === 'start' && <StartScreen startGame={startGame}/>}
-      {gameStage === 'game' && <GameScreen verifyLetter={verifyLetter} pickedWord={pickedWord} pickedCategory={pickedCategory} letters={letters} guessedLetters={guessedLetters} guessed={guessed} wrongLetters={wrongLetters} score={score}/>}
+      {gameStage === 'game' && <GameScreen verifyLetter={verifyLetter} pickedWord={pickedWord} pickedCategory={pickedCategory} letters={letters} guessedLetters={guessedLetters} guessed={guesses} wrongLetters={wrongLetters} score={score}/>}
       {gameStage === 'end' && <EndScreen retry={retry}/>}
     </div>
   )
